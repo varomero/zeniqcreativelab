@@ -591,6 +591,30 @@
             if (e.target === scModal || e.target.classList.contains('modal-video-container')) closeModal();
         });
     })();
+    
+    // ----------------------------------------------------------------
+    // ANTI-FREEZE MÓVIL (Page Visibility API)
+    // Descongela los videos cuando el usuario regresa a la pestaña/app
+    // ----------------------------------------------------------------
+    document.addEventListener("visibilitychange", function() {
+        if (document.visibilityState === "visible") {
+            // Busca todos los videos de la página
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(video => {
+                // Si el video tiene el atributo autoplay (Hero, Menu, About), oblígalo a reproducirse
+                if (video.hasAttribute('autoplay')) {
+                    video.play().catch(e => console.log("Esperando interacción para reproducir"));
+                }
+            });
+
+            // Si hay un fondo de proyecto activo (en desktop), también enciéndelo
+            const activeProjectVideo = document.querySelector('.dynamic-bg.is-active video');
+            if (activeProjectVideo) {
+                activeProjectVideo.play().catch(e => console.log("Esperando interacción"));
+            }
+        }
+    });
+
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </body>
