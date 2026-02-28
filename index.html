@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENIQ | Creative Lab</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="ZENIQ Creative Lab — Laboratorio creativo especializado en cinematografía comercial, Vertical Cinema Content y desarrollo web de vanguardia.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="ZENIQ Creative Lab">
+    <meta name="theme-color" content="#d35400">
+    <link rel="canonical" href="https://www.zeniqcreativelab.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.zeniqcreativelab.com/">
+    <meta property="og:title" content="ZENIQ Creative Lab | Cinematografía Comercial &amp; Desarrollo Web">
+    <meta property="og:description" content="Estudio creativo especializado en cinematografía comercial, Vertical Cinema Content y desarrollo web de vanguardia. Transformamos ideas en experiencias visuales memorables.">
+    <meta property="og:image" content="https://www.zeniqcreativelab.com/fondo.jpg">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="ZENIQ Creative Lab">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <img src="logo.png" alt="Cargando ZENIQ..." class="preloader-logo">
+    </div>
+
+    <div id="cursor"></div>
+
+    <nav class="glass-nav">
+        <a href="#hero" class="nav-logo-link" aria-label="Volver al inicio"><img src="logo.png" alt="ZENIQ Creative Lab" class="nav-logo-img"></a>
+        <div class="nav-trigger hover-target" id="menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="menu-shockwave" id="shockwave"></div>
+
+    <div id="menu-overlay">
+        <video class="menu-video-bg" autoplay loop muted playsinline>
+            <source src="fondo-animado.mp4" type="video/mp4">
+        </video>
+        <div class="menu-video-overlay"></div>
+
+        <div class="menu-container">
+            <div class="menu-info">
+                <p class="menu-label">Ponte en contacto</p>
+                <a href="mailto:romero@zeniqcreativelab.com" class="hover-target">romero@zeniqcreativelab.com</a>
+                <p class="menu-label" style="margin-top: 3rem;">Nuestras Redes</p>
+                <div class="menu-socials">
+                    <a href="#" class="hover-target">Instagram</a>
+                    <a href="#" class="hover-target">Behance</a>
+                    <a href="#" class="hover-target">WhatsApp</a>
+                </div>
+            </div>
+
+            <ul class="menu-links-2026">
+                <li class="menu-item" style="--i: 1;"><span class="menu-num">01</span><a href="#hero" class="hover-target magnetic" onclick="toggleMenu()">Inicio</a></li>
+                <li class="menu-item" style="--i: 2;"><span class="menu-num">02</span><a href="#reel" class="hover-target magnetic" onclick="toggleMenu()">Showreel</a></li>
+                <li class="menu-item" style="--i: 3;"><span class="menu-num">03</span><a href="#about" class="hover-target magnetic" onclick="toggleMenu()">About</a></li>
+                <li class="menu-item" style="--i: 4;"><span class="menu-num">04</span><a href="#servicios" class="hover-target magnetic" onclick="toggleMenu()">Servicios</a></li>
+                <li class="menu-item" style="--i: 5;"><span class="menu-num">05</span><a href="#proyectos" class="hover-target magnetic" onclick="toggleMenu()">Proyectos</a></li>
+                <li class="menu-item" style="--i: 6;"><span class="menu-num">06</span><a href="#contacto" class="hover-target magnetic" onclick="toggleMenu()">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main id="main-content">
+
+        <section class="hero" id="hero">
+            <video class="hero-bg-video" autoplay loop muted playsinline>
+                <source src="fondo-animado.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-center-stack">
+                <div class="hero-logo-wrapper hover-target magnetic entrance-scale delay-1">
+                    <img src="zeniqlogoproyects.png" alt="ZENIQ Creative Lab" class="hero-logo" fetchpriority="high">
+                </div>
+                <div class="text-mask-container">
+                    <p class="hero-subtitle entrance-slide delay-2">BUILDING A WORLD WITH REAL FILMS</p>
+                </div>
+                <div class="entrance-fade delay-3">
+                    <a href="#reel" class="hero-cta hover-target magnetic">
+                        <span class="cta-text">Ver Showreel</span>
+                        <span class="cta-icon">&#10022;</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-bottom-minimal entrance-fade delay-4">
+                <p>Scroll to discover our world</p>
+            </div>
+        </section>
+
+        <section id="reel" class="showreel-section">
+            <div class="video-wrapper reel-target cinematic-trigger" id="reel-container">
+                <div class="yt-player-wrapper">
+                    <div id="yt-player"></div>
+                </div>
+                <div class="reel-text-overlay" id="reel-text">SHOWREEL</div>
+            </div>
+        </section>
+
+        <section class="about-premium" id="about">
+            <div class="about-premium-container">
+                <div class="about-headline reveal-block delay-1">
+                    <h2>No seguimos <br>las <span class="white-italic">reglas.</span><br> Las <span class="white-italic">escribimos.</span></h2>
+                </div>
+                <div class="about-editorial-grid">
+                    <div class="about-visual reveal-block delay-2 cinematic-focus-container">
+                        <video src="videos/tu-video-about.mp4" class="editorial-img cinematic-portrait" id="scroll-focus-img" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="about-copy">
+                        <span class="about-badge reveal-block delay-3">Nuestra Esencia</span>
+                        <h3 class="reveal-block delay-4">Diseño con <br>Prop&#243;sito Absoluto</h3>
+                        <p class="reveal-block delay-5">Somos un estudio creativo forjado en la intersección del arte y la tecnología. Transformamos ideas complejas en experiencias digitales fluidas, elegantes y memorables.</p>
+                        <p class="reveal-block delay-6">Trabajamos con un equipo selecto para garantizar que cada píxel, cada frame y cada línea de código lleve nuestra firma de excelencia. No hacemos proyectos, construimos legados.</p>
+                        <div class="entrance-fade delay-3">
+                            <a href="#contacto" class="hero-cta hover-target magnetic">
+                                <span class="cta-text">Inicia un Proyecto</span>
+                                <span class="cta-icon">&#10022;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-brands">
+                <p class="brands-title">Marcas que confían en nuestra firma</p>
+                <div class="brands-marquee">
+                    <div class="brands-track">
+                        <div class="brands-set">
+                            <img src="logos/jeep.svg" alt="Jeep" class="brand-logo">
+                            <img src="logos/ram.svg" alt="RAM" class="brand-logo">
+                            <img src="logos/fiat.svg" alt="FIAT" class="brand-logo">
+                            <img src="logos/cliente4.svg" alt="Cliente" class="brand-logo">
+                            <img src="logos/cliente5.svg" alt="Cliente" class="brand-logo">
+                        </div>
+                        <div class="brands-set">
+                            <img src="logos/jeep.svg" alt="Jeep" class="brand-logo">
+                            <img src="logos/ram.svg" alt="RAM" class="brand-logo">
+                            <img src="logos/fiat.svg" alt="FIAT" class="brand-logo">
+                            <img src="logos/cliente4.svg" alt="Cliente" class="brand-logo">
+                            <img src="logos/cliente5.svg" alt="Cliente" class="brand-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios">
+            <div class="services-header reveal">
+                <span class="section-label">SERVICIOS</span>
+                <h2 class="services-main-title">&#191;QU&#201; HACEMOS?</h2>
+            </div>
+            <div class="services-gallery reveal">
+                <div class="service-panel hover-target">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800" class="panel-img" alt="Desarrollo Web" loading="lazy">
+                    <div class="panel-overlay"></div>
+                    <div class="panel-content">
+                        <span class="panel-num">01</span>
+                        <h3>Arquitectura Digital &amp; Desarrollo Web</h3>
+                        <p>Construimos plataformas digitales que impulsan tu negocio. Diseñamos páginas web fluidas, intuitivas y visualmente impecables. Una herramienta estratégica para atraer clientes, generar confianza y escalar tus ventas las 24 horas del día.</p>
+                    </div>
+                </div>
+                <div class="service-panel hover-target">
+                    <img src="https://images.unsplash.com/photo-1492691523567-6170c240538f?auto=format&fit=crop&w=800" class="panel-img" alt="Cinematografía" loading="lazy">
+                    <div class="panel-overlay"></div>
+                    <div class="panel-content">
+                        <span class="panel-num">02</span>
+                        <h3>Cinematografía Comercial</h3>
+                        <p>Llevamos la calidad visual del cine directamente a tu marca. Dirección, grabación con equipos de alta gama, edición, corrección de color profesional y diseño de sonido. Comerciales que conectan emocionalmente con tu audiencia.</p>
+                    </div>
+                </div>
+                <div class="service-panel hover-target">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800" class="panel-img" alt="Vertical Cinema" loading="lazy">
+                    <div class="panel-overlay"></div>
+                    <div class="panel-content">
+                        <span class="panel-num">03</span>
+                        <h3>Vertical Cinema Content <span class="service-badge">MVP</span></h3>
+                        <p>Adaptamos el formato rey de las redes. Grabamos en vertical aplicando ópticas y lenguaje de cine. La estética de una producción profesional directamente a la pantalla del móvil, convirtiendo espectadores en clientes leales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="monolith-section">
+    <div class="monolith-header reveal">
+        <div>
+            <span class="section-label">PORTAFOLIO</span>
+            <h2 class="monolith-main-title">
+                <span class="monolith-title-line">NUESTROS</span>
+                <em class="monolith-title-line mtl-delay">PROYECTOS</em>
+            </h2>
+        </div>
+        <a href="proyectos.html" class="monolith-cta-btn">
+            <span class="monolith-cta-label">El archivo completo</span>
+            <span class="monolith-cta-arrow">→</span>
+        </a>
+    </div>
+    <div class="monolith-accordion">
+
+        <!-- 01 — FIAT VENEZUELA -->
+        <div class="monolith-panel" data-yt-id="MqXLyt2LGLI">
+            <img class="monolith-cover" src="cover-fiat.jpg" alt="FIAT Venezuela">
+            <video class="monolith-video-bg" muted loop playsinline preload="none">
+                <source src="videos/FIATcomercial.mp4" type="video/mp4">
+            </video>
+            <div class="monolith-overlay"></div>
+            <div class="monolith-panel-inner">
+                <span class="monolith-num">01</span>
+                <div class="monolith-title-wrap">
+                    <h3 class="monolith-title">FIAT VENEZUELA</h3>
+                </div>
+                <div class="monolith-content">
+                    <p class="monolith-desc">Dirección y cinematografía comercial para FIAT. Captura en alto rango dinámico con Blackmagic Camera y ópticas de cine Sirui Nightwalker.</p>
+                    <button class="monolith-btn js-open-modal">Ver Proyecto ↗</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02 — GOLDEN DOG CONTEST -->
+        <div class="monolith-panel" data-yt-id="vrqXJUte8Ss">
+            <img class="monolith-cover" src="img/cover-golden.jpg" alt="Golden Dog Contest">
+            <video class="monolith-video-bg" muted loop playsinline preload="none">
+                <source src="videos/tu-video-vertical.mp4" type="video/mp4">
+            </video>
+            <div class="monolith-overlay"></div>
+            <div class="monolith-panel-inner">
+                <span class="monolith-num">02</span>
+                <div class="monolith-title-wrap">
+                    <h3 class="monolith-title">GOLDEN DOG CONTEST</h3>
+                </div>
+                <div class="monolith-content">
+                    <p class="monolith-desc">Vertical Cinema con Sony a6700. Contenido diseñado exclusivamente para dominar el algoritmo y convertir espectadores en clientes.</p>
+                    <button class="monolith-btn js-open-modal">Ver Proyecto ↗</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 — PLATAFORMA ZENIQ -->
+        <div class="monolith-panel monolith-panel--external">
+            <img class="monolith-cover" src="img/cover-zeniq.jpg" alt="Plataforma ZENIQ">
+            <video class="monolith-video-bg" muted loop playsinline preload="none">
+                <source src="videos/tu-video-web-scroll.mp4" type="video/mp4">
+            </video>
+            <div class="monolith-overlay"></div>
+            <div class="monolith-panel-inner">
+                <span class="monolith-num">03</span>
+                <div class="monolith-title-wrap">
+                    <h3 class="monolith-title">PLATAFORMA ZENIQ</h3>
+                </div>
+                <div class="monolith-content">
+                    <p class="monolith-desc">Arquitectura digital, diseño UI/UX interactivo y desarrollo de vanguardia para nuestro propio laboratorio creativo.</p>
+                    <a href="https://zeniqcreativelab.com" target="_blank" class="monolith-btn">Ver Proyecto ↗</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a href="proyectos.html" class="monolith-cta-btn monolith-cta-mobile">
+        <span class="monolith-cta-label">El archivo completo</span>
+        <span class="monolith-cta-arrow">→</span>
+    </a>
+</section>
+
+<div class="premium-video-modal" id="showcaseModal">
+    <div class="modal-close-btn" id="closeShowcaseModal">CERRAR &#10005;</div>
+    <div class="modal-video-container" id="showcasePlayerContainer">
+        </div>
+</div>
+        <section id="contacto" class="contact-section">
+            <span class="section-label reveal" style="text-align:center; margin-bottom:20px;">INICIAR PROYECTO</span>
+            <h2 class="contact-title reveal">Cu&#233;ntanos tu idea.</h2>
+            <form action="mailto:romero@zeniqcreativelab.com" method="POST" enctype="text/plain" class="premium-form reveal">
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="text" id="nombre" name="Nombre" required class="hover-target">
+                        <label for="nombre">Tu Nombre o Empresa *</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ubicacion" name="Ubicacion" required class="hover-target">
+                        <label for="ubicacion">País / Ciudad *</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <input type="email" id="email" name="Email" required class="hover-target">
+                        <label for="email">Tu Correo Electrónico *</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" id="telefono" name="Telefono" class="hover-target">
+                        <label for="telefono">Teléfono / WhatsApp</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <select id="servicio" name="Servicio" required class="hover-target">
+                            <option value="" disabled selected></option>
+                            <option value="Desarrollo Web">Desarrollo Web / Software</option>
+                            <option value="Produccion TV">Producción Cinematográfica</option>
+                            <option value="Cinema Reels">Vertical Cinema Reels</option>
+                            <option value="Branding">Branding / Otro</option>
+                        </select>
+                        <label for="servicio">&#191;Qué servicio buscas? *</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="input-group">
+                        <select id="presupuesto" name="Presupuesto" required class="hover-target">
+                            <option value="" disabled selected></option>
+                            <option value="-1k">Menos de $1,000</option>
+                            <option value="1k-3k">$1,000 – $3,000</option>
+                            <option value="3k-10k">$3,000 – $10,000</option>
+                            <option value="+10k">Más de $10,000</option>
+                        </select>
+                        <label for="presupuesto">Presupuesto Estimado *</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="form-row full">
+                    <div class="input-group">
+                        <input type="text" id="mensaje" name="Mensaje" required class="hover-target">
+                        <label for="mensaje">Cuéntanos brevemente sobre el proyecto...</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="liquid-btn hover-target magnetic">Comienza la Magia</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <img src="logo.png" alt="ZENIQ Creative Lab" class="footer-logo hover-target">
+        <div class="footer-content">
+            <div class="f-left">
+                <p>&#169; 2026 ZENIQ CREATIVE LAB. Todos los derechos reservados.</p>
+                <p>Desarrollado por <a href="https://www.zeniqcreativelab.com" class="hover-target" style="color:var(--accent); font-weight:500;">ZENIQ CREATIVE LAB</a></p>
+            </div>
+            <div class="f-right social-links">
+                <a href="#" class="hover-target">Instagram</a>
+                <a href="#" class="hover-target">Behance</a>
+                <a href="#" class="hover-target">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="premium-video-modal" id="showcaseModal">
+        <div class="modal-close-btn" id="closeShowcaseModal">CERRAR &#10005;</div>
+        <div class="modal-video-container">
+            <video id="showcasePlayer" controls playsinline></video>
+        </div>
+    </div>
+
+    <script>
+    // 1. PRELOADER
+    window.addEventListener('load', () => {
+        setTimeout(() => document.body.classList.add('loaded'), 2000);
+    });
+
+    // 2. MENÚ SHOCKWAVE
+    function toggleMenu() {
+        document.getElementById('shockwave').classList.toggle('active');
+        document.getElementById('menu-overlay').classList.toggle('active');
+        document.getElementById('menu-btn').classList.toggle('active');
+    }
+
+    // 3. CURSOR
+    const cursor = document.getElementById('cursor');
+    let mX = 0, mY = 0, cX = 0, cY = 0;
+    document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; });
+    (function tick() {
+        cX += (mX - cX) * 0.15; cY += (mY - cY) * 0.15;
+        cursor.style.transform = 'translate3d(' + cX + 'px, ' + cY + 'px, 0) translate(-50%, -50%)';
+        requestAnimationFrame(tick);
+    })();
+
+    // 4. SHOWREEL YOUTUBE
+    var ytPlayer = null;
+    function onYouTubeIframeAPIReady() {
+        ytPlayer = new YT.Player('yt-player', {
+            videoId: 'MqXLyt2LGLI',
+            playerVars: { autoplay: 1, mute: 1, loop: 1, playlist: 'vrqXJUte8Ss', controls: 0, playsinline: 1, modestbranding: 1, rel: 0 },
+            events: { onReady: function(e) { e.target.playVideo(); } }
+        });
+    }
+    const reelContainer = document.getElementById('reel-container');
+    if (reelContainer) {
+        reelContainer.addEventListener('click', function() {
+            if (!ytPlayer) return;
+            if (ytPlayer.isMuted()) {
+                ytPlayer.unMute(); reelContainer.classList.add('is-playing');
+                cursor.classList.replace('play-mode', 'pause-mode');
+            } else {
+                ytPlayer.mute(); reelContainer.classList.remove('is-playing');
+                cursor.classList.replace('pause-mode', 'play-mode');
+            }
+        });
+    }
+
+    // 5. HOVER CURSOR
+    document.querySelectorAll('.hover-target, a, button, .service-panel, .input-group input, .input-group select, .footer-logo, .modal-close-btn, .brand-logo, .monolith-panel').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+    });
+    document.querySelectorAll('.reel-target').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add((!ytPlayer || ytPlayer.isMuted()) ? 'play-mode' : 'pause-mode'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('play-mode', 'pause-mode'));
+    });
+
+    // 6. MAGNETIC
+    document.querySelectorAll('.magnetic').forEach(elem => {
+        elem.addEventListener('mousemove', function(e) {
+            var rect = this.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width / 2;
+            var y = e.clientY - rect.top - rect.height / 2;
+            this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            this.style.transition = 'transform 0.1s ease-out';
+        });
+        elem.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0, 0)';
+            this.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        });
+    });
+
+    // 7. SCROLL REVEAL (GENERAL)
+    var revealObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('active', 'is-visible');
+            if (entry.target.classList.contains('cinematic-trigger')) entry.target.classList.add('cinematic-active');
+            obs.unobserve(entry.target);
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal, .reveal-block, .cinematic-trigger').forEach(el => revealObserver.observe(el));
+
+    // 8. TELÓN SHOWREEL
+    window.addEventListener('scroll', () => {
+        var reel = document.getElementById('reel-container');
+        if (!reel) return;
+        var rect = reel.getBoundingClientRect();
+        if (rect.top <= 80 && reel.classList.contains('cinematic-active')) {
+            var progress = Math.min(1, Math.abs(rect.top - 80) / (rect.height / 1.5));
+            reel.style.transition = 'none';
+            reel.style.clipPath = `inset(${35 * progress}% 0 ${35 * progress}% 0)`;
+            reel.style.transform = `scale(${1 - 0.15 * progress})`;
+            reel.style.opacity = 1 - progress * 1.2;
+            reel.style.borderRadius = `${50 * progress}px`;
+        } else {
+            reel.style.transition = 'clip-path 1.5s var(--cubic), transform 1.5s var(--cubic), border-radius 1.5s var(--cubic), opacity 1s ease';
+            reel.style.clipPath = ''; reel.style.transform = ''; reel.style.opacity = ''; reel.style.borderRadius = '';
+        }
+    }, { passive: true });
+
+    // 9. SCROLL SUAVE
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            var targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            e.preventDefault();
+            var target = document.querySelector(targetId);
+            if (!target) return;
+            var start = window.scrollY, distance = target.getBoundingClientRect().top, duration = 900, startTime = null;
+            function animate(now) {
+                if (!startTime) startTime = now;
+                var t = (now - startTime) / (duration / 2);
+                window.scrollTo(0, t < 1 ? distance / 2 * t * t * t + start : distance / 2 * ((t -= 2) * t * t + 2) + start);
+                if (now - startTime < duration) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        });
+    });
+
+    // 10. SERVICIOS MOBILE
+    (function() {
+        var svcGallery = document.querySelector('.services-gallery');
+        if (!svcGallery) return;
+        var startY = 0;
+        svcGallery.addEventListener('touchstart', e => startY = e.touches[0].clientY, { passive: true });
+        svcGallery.addEventListener('touchend', e => {
+            if (window.innerWidth > 768 || Math.abs(e.changedTouches[0].clientY - startY) > 8) return;
+            var panel = e.target.closest('.service-panel');
+            if (!panel) return;
+            e.preventDefault();
+            var opening = !panel.classList.contains('is-mobile-open');
+            svcGallery.querySelectorAll('.service-panel.is-mobile-open').forEach(p => {
+                p.style.height = p.scrollHeight + 'px'; p.getBoundingClientRect();
+                p.style.height = '70px'; p.classList.remove('is-mobile-open');
+            });
+            if (opening) {
+                panel.style.height = '70px'; panel.classList.add('is-mobile-open');
+                var fullH = panel.scrollHeight; panel.getBoundingClientRect();
+                panel.style.height = fullH + 'px';
+            }
+        });
+        svcGallery.addEventListener('transitionend', e => {
+            if (e.target.classList.contains('service-panel') && e.propertyName === 'height') e.target.style.height = '';
+        });
+    })();
+
+    // 11. FOCUS PULL
+    var focusImg = document.getElementById('scroll-focus-img');
+    if (focusImg) {
+        function applyScrollFocus() {
+            var progress = Math.max(0, Math.min(1, (window.innerHeight - focusImg.getBoundingClientRect().top) / (window.innerHeight / 1.3)));
+            focusImg.style.setProperty('--blur-val', (10 - progress * 10) + 'px');
+            focusImg.style.setProperty('--bw-val', (100 - progress * 100) + '%');
+            progress >= 0.9 ? focusImg.classList.add('is-focused') : focusImg.classList.remove('is-focused');
+        }
+        applyScrollFocus(); window.addEventListener('scroll', applyScrollFocus, { passive: true });
+    }
+
+    // 12. FORMULARIO
+    document.querySelectorAll('.input-group input, .input-group select').forEach(field => {
+        const sync = () => field.classList.toggle('has-value', field.value !== '');
+        field.addEventListener('input', sync); field.addEventListener('change', sync); sync();
+    });
+
+    // ==========================================================
+    // 13. MONOLITH ACCORDION — Mobile tap + Video hover + Modal YT
+    // ==========================================================
+    (function() {
+        const panels      = document.querySelectorAll('.monolith-panel');
+        const scModal     = document.getElementById('showcaseModal');
+        const scContainer = document.getElementById('showcasePlayerContainer');
+        const scCloseBtn  = document.getElementById('closeShowcaseModal');
+
+        if (!panels.length) return;
+
+        // A. HOVER DESKTOP: play/pause video de fondo
+        if (window.matchMedia('(hover: hover)').matches) {
+            panels.forEach(panel => {
+                const vid = panel.querySelector('.monolith-video-bg');
+                if (!vid) return;
+                panel.addEventListener('mouseenter', () => { vid.currentTime = 0; vid.play(); });
+                panel.addEventListener('mouseleave', () => vid.pause());
+            });
+        }
+
+        // B. TAP MÓVIL: toggle .is-open (acordeón exclusivo)
+        panels.forEach(panel => {
+            panel.addEventListener('click', function(e) {
+                if (e.target.closest('.js-open-modal') || e.target.closest('a.monolith-btn')) return;
+                if (window.innerWidth <= 768) {
+                    const isOpen = panel.classList.contains('is-open');
+                    panels.forEach(p => p.classList.remove('is-open'));
+                    if (!isOpen) panel.classList.add('is-open');
+                }
+            });
+        });
+
+        // C. MODAL YOUTUBE — botones "Ver Proyecto"
+        const openModal = (ytId) => {
+            if (!scModal || !scContainer || !ytId) return;
+            scContainer.innerHTML = `<iframe width="100%" height="100%"
+                src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1"
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
+                style="border-radius:12px; box-shadow:0 30px 60px rgba(0,0,0,0.8);"
+                allowfullscreen></iframe>`;
+            scModal.classList.add('is-active');
+        };
+
+        const closeModal = () => {
+            if (!scModal || !scContainer) return;
+            scModal.classList.remove('is-active');
+            scContainer.innerHTML = '';
+        };
+
+        document.querySelectorAll('.monolith-panel .js-open-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const ytId = btn.closest('.monolith-panel').getAttribute('data-yt-id');
+                openModal(ytId);
+            });
+        });
+
+        if (scCloseBtn) scCloseBtn.addEventListener('click', closeModal);
+        if (scModal) scModal.addEventListener('click', e => {
+            if (e.target === scModal || e.target.classList.contains('modal-video-container')) closeModal();
+        });
+    })();
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

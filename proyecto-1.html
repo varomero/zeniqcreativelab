@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaña Global | Tu Estudio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@1,300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-entering">
+
+    <div class="page-transition">
+        <div class="pt-layer pt-layer-black"></div>
+        <div class="pt-layer pt-layer-orange">
+            <img src="logo.png" alt="Cargando" class="pt-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png'; this.style.filter='invert(1)';">
+        </div>
+    </div>
+    <div id="cursor"></div>
+
+    <nav class="glass-nav">
+        <a href="index.html" class="hover-target">
+            <img src="logo.png" alt="Logo" class="nav-logo-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png'; this.style.filter='invert(1)';">
+        </a>
+        <div class="nav-trigger hover-target" id="menu-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <div class="menu-shockwave" id="shockwave"></div>
+    < <div id="menu-overlay">
+        
+        <video class="menu-video-bg" autoplay loop muted playsinline>
+            <source src="fondo-animado.mp4" type="video/mp4">
+        </video>
+        
+        <div class="menu-video-overlay"></div>
+
+        <div class="menu-container">
+            
+            <div class="menu-info">
+                <p class="menu-label">Ponte en contacto</p>
+                <a href="mailto:hola@tuestudio.com" class="hover-target">hola@tuestudio.com</a>
+                
+                <p class="menu-label" style="margin-top: 3rem;">Nuestras Redes</p>
+                <div class="menu-socials">
+                    <a href="#" class="hover-target">Instagram</a>
+                    <a href="#" class="hover-target">Behance</a>
+                    <a href="#" class="hover-target">Vimeo</a>
+                </div>
+            </div>
+
+            <ul class="menu-links-2026">
+                <li class="menu-item" style="--i: 1;">
+                    <span class="menu-num">01</span>
+                    <a href="index.html" class="hover-target magnetic" onclick="toggleMenu()">Inicio</a>
+                </li>
+                <li class="menu-item" style="--i: 2;">
+                    <span class="menu-num">02</span>
+                    <a href="#reel" class="hover-target magnetic" onclick="toggleMenu()">Showreel</a>
+                </li>
+                <li class="menu-item" style="--i: 3;">
+                    <span class="menu-num">03</span>
+                    <a href="#servicios" class="hover-target magnetic" onclick="toggleMenu()">Expertise</a>
+                </li>
+                <li class="menu-item" style="--i: 4;">
+                    <span class="menu-num">04</span>
+                    <a href="proyecto-1.html" class="hover-target magnetic transition-link" onclick="toggleMenu()">Proyectos</a>
+                </li>
+            </ul>
+            
+        </div>
+    </div>
+
+    <main>
+        <header class="project-hero">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920" class="project-hero-bg" alt="Campaña Global">
+            <div class="project-hero-content reveal">
+                <div class="project-category">Comercial de TV</div>
+                <h1>Campaña Global</h1>
+            </div>
+        </header>
+
+        <section class="project-brief">
+            <div class="brief-meta reveal">
+                <div class="meta-item">
+                    <span>Cliente</span>
+                    <p>Marca Internacional S.A.</p>
+                </div>
+                <div class="meta-item">
+                    <span>Año</span>
+                    <p>2026</p>
+                </div>
+                <div class="meta-item">
+                    <span>Nuestros Servicios</span>
+                    <p>Dirección Creativa, Rodaje, Color Grading, VFX.</p>
+                </div>
+            </div>
+            <div class="brief-text reveal">
+                <p>El reto consistía en llevar la visión de la marca a un formato audiovisual que rompiera los esquemas de la televisión tradicional. Desarrollamos una narrativa visual intensa, utilizando ópticas anamórficas y una colorimetría agresiva para destacar en el prime-time.</p>
+            </div>
+        </section>
+
+        <section class="project-media">
+            <div class="media-full reveal hover-target">
+                <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1920" alt="Detalle 1">
+            </div>
+            
+            <div class="media-grid">
+                <div class="media-full reveal hover-target">
+                    <img src="https://images.unsplash.com/photo-1492691523567-6170c240538f?auto=format&fit=crop&w=800" alt="Detalle 2">
+                </div>
+                <div class="media-full reveal hover-target">
+                    <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=800" alt="Detalle 3">
+                </div>
+            </div>
+        </section>
+
+        <a href="proyecto-2.html" class="next-project hover-target reveal">
+            <span>Siguiente Caso de Estudio</span>
+            <h2>Fintech App</h2>
+        </a>
+    </main>
+
+    <footer class="main-footer reveal">
+        <div class="footer-content">
+            <div class="f-left">
+                <p>© 2026 Tu Estudio. Todos los derechos reservados.</p>
+            </div>
+            <div class="f-right social-links">
+                <a href="#" class="hover-target">Instagram</a>
+                <a href="#" class="hover-target">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+    // 1. MOTOR DE TRANSICIÓN DE PÁGINAS (AWWWARDS STYLE)
+        window.addEventListener('load', () => {
+            // Cuando la página carga, levanta el telón
+            setTimeout(() => {
+                document.body.classList.remove('is-entering');
+                document.body.classList.add('is-loaded');
+            }, 1500); // Pequeño retraso para que carguen las fotos
+        });
+
+        // Interceptamos los clics para ejecutar la cortina ANTES de cambiar de web
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Detenemos el salto inmediato
+                const target = this.href;
+                
+                // Bajamos el telón
+                document.body.classList.remove('is-loaded');
+                document.body.classList.add('is-leaving');
+                
+                // Esperamos 1 segundo (lo que dura la animación) y saltamos de página
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 1000);
+            });
+        });
+        function toggleMenu() { document.getElementById('menu-overlay').classList.toggle('active'); document.getElementById('shockwave').classList.toggle('active'); document.getElementById('menu-btn').classList.toggle('active'); }
+        const cursor = document.getElementById('cursor');
+        let mX = 0, mY = 0, cX = 0, cY = 0;
+        document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; });
+        const tick = () => { cX += (mX - cX) * 0.15; cY += (mY - cY) * 0.15; cursor.style.transform = `translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`; requestAnimationFrame(tick); }; tick();
+        document.querySelectorAll('.hover-target').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('hovered')); el.addEventListener('mouseleave', () => cursor.classList.remove('hovered')); });
+        const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
