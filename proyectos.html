@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Archivo | ZENIQ Creative Lab</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="archive-light-page">
+
+    <div class="preloader"><img src="logo.png" alt="Cargando ZENIQ..." class="preloader-logo"></div>
+    <div id="cursor"></div>
+
+    <nav class="glass-nav nav-light-mode">
+        <a href="index.html" class="nav-logo-link"><img src="logo.png" alt="ZENIQ" class="nav-logo-img"></a>
+        <div class="nav-trigger hover-target" id="menu-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="menu-shockwave" id="shockwave"></div>
+    <div id="menu-overlay">
+        <div class="menu-container">
+            <ul class="menu-links-2026">
+                <li class="menu-item" style="--i: 1;"><span class="menu-num">01</span><a href="index.html" class="hover-target">Inicio</a></li>
+                <li class="menu-item" style="--i: 2;"><span class="menu-num">02</span><a href="index.html#servicios" class="hover-target">Servicios</a></li>
+                <li class="menu-item" style="--i: 3;"><span class="menu-num">03</span><a href="index.html#contacto" class="hover-target">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main id="main-content">
+        
+        <section class="archive-header-light reveal">
+            <div class="header-logo-container">
+                <img src="zeniqlogoproyects.png" alt="ZENIQ Creative Lab" class="archive-logo-dark">
+            </div>
+            <h1 class="archive-title-light">EL ARCHIVO</h1>
+            
+            <div class="project-filters-light">
+                <button class="filter-btn-light active hover-target" data-filter="all">TODOS</button>
+                <button class="filter-btn-light hover-target" data-filter="comercial">COMERCIALES</button>
+                <button class="filter-btn-light hover-target" data-filter="vertical">VERTICAL CINEMA</button>
+                <button class="filter-btn-light hover-target" data-filter="web">WEB</button>
+            </div>
+        </section>
+
+        <div class="category-row reveal" id="row-comercial">
+            <div class="category-title">
+                <h2>01. CINEMATOGRAFÍA COMERCIAL</h2>
+            </div>
+            <section class="horizontal-gallery-container">
+                <div class="horizontal-track">
+                    
+                    <div class="gallery-item format-16-9">
+                        <div class="item-media js-open-modal hover-target" data-yt-id="MqXLyt2LGLI">
+                            <img src="cover-fiat.jpg" alt="FIAT Venezuela" class="media-bg">
+                            <div class="play-indicator">VER COMERCIAL</div>
+                        </div>
+                        <div class="item-info">
+                            <h3>FIAT VENEZUELA</h3>
+                            <p>Dirección y cinematografía comercial. Alto rango dinámico capturado con ópticas de cine premium.</p>
+                        </div>
+                    </div>
+
+                    </div>
+            </section>
+        </div>
+
+        <div class="category-row reveal" id="row-vertical">
+            <div class="category-title">
+                <h2>02. VERTICAL CINEMA</h2>
+            </div>
+            <section class="horizontal-gallery-container">
+                <div class="horizontal-track">
+                    
+                    <div class="gallery-item format-9-16">
+                        <div class="item-media js-open-modal hover-target" data-yt-id="vrqXJUte8Ss">
+                            <img src="img/cover-golden.jpg" alt="Golden Dog Contest" class="media-bg">
+                            <div class="play-indicator">PLAY REEL</div>
+                        </div>
+                        <div class="item-info">
+                            <h3>GOLDEN DOG CONTEST</h3>
+                            <p>Vertical Cinema Content diseñado exclusivamente para dominar el algoritmo y generar conversión.</p>
+                        </div>
+                    </div>
+
+                    </div>
+            </section>
+        </div>
+
+        <div class="category-row reveal" id="row-web">
+            <div class="category-title">
+                <h2>03. ARQUITECTURA DIGITAL</h2>
+            </div>
+            <section class="horizontal-gallery-container">
+                <div class="horizontal-track">
+                    
+                    <div class="gallery-item format-web">
+                        <a href="https://zeniqcreativelab.com" target="_blank" class="item-media hover-target">
+                            <video autoplay loop muted playsinline class="media-bg">
+                                <source src="videos/tu-video-web-scroll.mp4" type="video/mp4">
+                            </video>
+                            <div class="play-indicator">VISITAR WEB ↗</div>
+                        </a>
+                        <div class="item-info">
+                            <h3>PLATAFORMA ZENIQ</h3>
+                            <p>Arquitectura digital, diseño UI/UX interactivo y desarrollo web de vanguardia.</p>
+                        </div>
+                    </div>
+
+                    </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="footer-light">
+        <p>&#169; 2026 ZENIQ CREATIVE LAB. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="premium-video-modal" id="showcaseModal">
+        <div class="modal-close-btn" id="closeShowcaseModal">CERRAR &#10005;</div>
+        <div class="modal-video-container" id="showcasePlayerContainer"></div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => setTimeout(() => document.body.classList.add('loaded'), 800));
+        function toggleMenu() { document.getElementById('shockwave').classList.toggle('active'); document.getElementById('menu-overlay').classList.toggle('active'); document.getElementById('menu-btn').classList.toggle('active'); }
+        var revealObserver = new IntersectionObserver((entries, obs) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active', 'is-visible'); obs.unobserve(entry.target); } }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        const cursor = document.getElementById('cursor');
+        let mX = 0, mY = 0, cX = 0, cY = 0;
+        if(cursor) { document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; }); (function tick() { cX += (mX - cX) * 0.15; cY += (mY - cY) * 0.15; cursor.style.transform = `translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`; requestAnimationFrame(tick); })(); }
+
+        const scModal = document.getElementById('showcaseModal'), scContainer = document.getElementById('showcasePlayerContainer');
+        document.querySelectorAll('.js-open-modal').forEach(btn => { btn.addEventListener('click', () => { const ytId = btn.getAttribute('data-yt-id'); if(ytId) { scContainer.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&modestbranding=1&rel=0" frameborder="0" allow="autoplay; fullscreen" style="border-radius:12px; box-shadow:0 30px 60px rgba(0,0,0,0.2);"></iframe>`; scModal.classList.add('is-active'); } }); });
+        document.getElementById('closeShowcaseModal').addEventListener('click', () => { scModal.classList.remove('is-active'); scContainer.innerHTML = ''; });
+
+        // NUEVO SISTEMA DE FILTROS (Maneja las filas completas)
+        const filterBtns = document.querySelectorAll('.filter-btn-light');
+        const categoryRows = document.querySelectorAll('.category-row');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                
+                categoryRows.forEach(row => {
+                    if(filterValue === 'all' || row.id === 'row-' + filterValue) {
+                        row.style.display = 'block';
+                        setTimeout(() => row.style.opacity = '1', 50);
+                    } else {
+                        row.style.opacity = '0';
+                        setTimeout(() => row.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
