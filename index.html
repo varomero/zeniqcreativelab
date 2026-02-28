@@ -592,50 +592,55 @@
         });
     })();
     
- // ----------------------------------------------------------------
-    // ANTI-FREEZE MÓVIL V2 (Hard Reset para iOS/Safari)
-    // Despierta los videos borrados de la memoria RAM
+// ----------------------------------------------------------------
+    // ANTI-FREEZE MÓVIL V3 (Ultimate Chrome + Safari + YouTube Fix)
+    // Despierta HTML5 y el Iframe de YouTube de forma inteligente
     // ----------------------------------------------------------------
-    function wakeUpVideos() {
+    function wakeUpAllMedia() {
+        // 1. DESCONGELAR VIDEOS HTML5 (Hero, About, Fondos)
         const allVideos = document.querySelectorAll('video');
         allVideos.forEach(video => {
             if (video.hasAttribute('autoplay') && video.paused) {
-                // El truco anti-Safari: Forzar recarga del buffer
-                video.load(); 
+                // Recordatorio de silencio para navegadores estrictos
+                video.muted = true; 
+                
+                // Intento suave (Ideal para Chrome y Android)
                 let playPromise = video.play();
                 
-                // Manejo de promesa para evitar errores en consola si Apple lo bloquea
                 if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log("iOS bloqueó el autoplay. Esperando interacción táctil.");
+                    playPromise.catch(() => {
+                        // Si el intento suave falla (Típico de iOS/Safari), aplicamos fuerza bruta
+                        video.load();
+                        video.play().catch(e => console.log("A la espera de toque táctil"));
                     });
                 }
             }
         });
-        
-        // Encender también el fondo de proyecto si hay uno activo (Desktop)
-        const activeBg = document.querySelector('.dynamic-bg.is-active video');
-        if (activeBg && activeBg.paused) activeBg.play().catch(e => {});
+
+        // 2. DESCONGELAR SHOWREEL (YouTube Iframe API)
+        // Verifica si el reproductor de YouTube ya se cargó y existe
+        if (typeof ytPlayer !== 'undefined' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            // Verifica si está pausado o en buffer, y lo obliga a reproducir
+            let playerState = ytPlayer.getPlayerState();
+            if (playerState !== 1) { // 1 significa 'Reproduciendo'
+                ytPlayer.playVideo();
+            }
+        }
     }
 
-    // Disparar en 3 frentes distintos porque iOS es impredecible
+    // Escuchadores de estado de la página
     document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") wakeUpVideos();
+        if (document.visibilityState === "visible") wakeUpAllMedia();
     });
-    window.addEventListener("focus", wakeUpVideos);
+    window.addEventListener("focus", wakeUpAllMedia);
     window.addEventListener("pageshow", (event) => {
-        if (event.persisted) wakeUpVideos(); // Si la página se restauró desde el caché
+        if (event.persisted) wakeUpAllMedia(); 
     });
 
-    // TRUCO SUCIO: Si todo falla, encender videos al primer toque de la pantalla (Scroll)
+    // Seguro de vida: Al primer toque en la pantalla
     document.addEventListener('touchstart', () => {
-        const allVideos = document.querySelectorAll('video');
-        allVideos.forEach(v => {
-            if (v.hasAttribute('autoplay') && v.paused) {
-                v.play().catch(e => {});
-            }
-        });
-    }, { once: true, passive: true }); // "once: true" hace que solo se ejecute la primera vez que tocan la pantalla
+        wakeUpAllMedia();
+    }, { once: true, passive: true });
 
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
