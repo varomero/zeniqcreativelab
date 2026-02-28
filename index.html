@@ -592,28 +592,50 @@
         });
     })();
     
+ // ----------------------------------------------------------------
+    // ANTI-FREEZE MÓVIL V2 (Hard Reset para iOS/Safari)
+    // Despierta los videos borrados de la memoria RAM
     // ----------------------------------------------------------------
-    // ANTI-FREEZE MÓVIL (Page Visibility API)
-    // Descongela los videos cuando el usuario regresa a la pestaña/app
-    // ----------------------------------------------------------------
-    document.addEventListener("visibilitychange", function() {
-        if (document.visibilityState === "visible") {
-            // Busca todos los videos de la página
-            const allVideos = document.querySelectorAll('video');
-            allVideos.forEach(video => {
-                // Si el video tiene el atributo autoplay (Hero, Menu, About), oblígalo a reproducirse
-                if (video.hasAttribute('autoplay')) {
-                    video.play().catch(e => console.log("Esperando interacción para reproducir"));
+    function wakeUpVideos() {
+        const allVideos = document.querySelectorAll('video');
+        allVideos.forEach(video => {
+            if (video.hasAttribute('autoplay') && video.paused) {
+                // El truco anti-Safari: Forzar recarga del buffer
+                video.load(); 
+                let playPromise = video.play();
+                
+                // Manejo de promesa para evitar errores en consola si Apple lo bloquea
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("iOS bloqueó el autoplay. Esperando interacción táctil.");
+                    });
                 }
-            });
-
-            // Si hay un fondo de proyecto activo (en desktop), también enciéndelo
-            const activeProjectVideo = document.querySelector('.dynamic-bg.is-active video');
-            if (activeProjectVideo) {
-                activeProjectVideo.play().catch(e => console.log("Esperando interacción"));
             }
-        }
+        });
+        
+        // Encender también el fondo de proyecto si hay uno activo (Desktop)
+        const activeBg = document.querySelector('.dynamic-bg.is-active video');
+        if (activeBg && activeBg.paused) activeBg.play().catch(e => {});
+    }
+
+    // Disparar en 3 frentes distintos porque iOS es impredecible
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") wakeUpVideos();
     });
+    window.addEventListener("focus", wakeUpVideos);
+    window.addEventListener("pageshow", (event) => {
+        if (event.persisted) wakeUpVideos(); // Si la página se restauró desde el caché
+    });
+
+    // TRUCO SUCIO: Si todo falla, encender videos al primer toque de la pantalla (Scroll)
+    document.addEventListener('touchstart', () => {
+        const allVideos = document.querySelectorAll('video');
+        allVideos.forEach(v => {
+            if (v.hasAttribute('autoplay') && v.paused) {
+                v.play().catch(e => {});
+            }
+        });
+    }, { once: true, passive: true }); // "once: true" hace que solo se ejecute la primera vez que tocan la pantalla
 
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
