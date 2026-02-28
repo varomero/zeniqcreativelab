@@ -661,3 +661,198 @@ main { position: relative; z-index: 50; background-color: var(--bg) !important; 
     .brand-logo { filter: grayscale(0%) opacity(1) !important; transform: none !important; }
     #scroll-focus-img { filter: none !important; transform: none !important; }
 }
+
+/* =========================================
+   PÁGINA DE PROYECTOS (ESTILO EDITORIAL BONHOMME)
+   ========================================= */
+
+/* Forzar que toda la página sea blanca */
+.archive-light-page { 
+    background: #ffffff !important; 
+    color: #1a1a1a; 
+}
+.archive-light-page main { 
+    background-color: #ffffff !important; 
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+
+/* El Nav Superior adaptado para fondo blanco */
+.nav-light-mode {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+.nav-light-mode .nav-trigger span { background: #000; }
+
+/* HEADER Y LOGO CENTRADO */
+.archive-header-light {
+    padding: 160px 6vw 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #ffffff;
+}
+.header-logo-container { margin-bottom: 50px; }
+.archive-logo-dark {
+    width: 100%;
+    max-width: 380px; /* Tamaño colosal en el centro */
+    /* Magia: Convierte tu logo blanco a gris oscuro (#333) */
+    filter: invert(1) brightness(0.2); 
+    transition: transform 0.4s ease;
+}
+.archive-logo-dark:hover { transform: scale(1.02); }
+.archive-title-light {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.9;
+    color: #050505;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.category-row { transition: opacity 0.4s ease; padding-bottom: 40px; }
+.category-title { padding: 0 6vw; margin-bottom: 30px; }
+.category-title h2 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+/* FILTROS */
+.project-filters-light { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.filter-btn-light {
+    background: transparent;
+    color: #888888;
+    border: 1px solid #e0e0e0;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.filter-btn-light:hover, .filter-btn-light.active {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+/* EL CONTENEDOR HORIZONTAL (CINTA) */
+.horizontal-gallery-container {
+    padding: 0 0 40px 6vw; /* Reducido para que las filas no estén tan separadas */
+    background: #ffffff;
+}
+.horizontal-track {
+    display: flex;
+    gap: 4vw; /* Espacio entre cada proyecto */
+    overflow-x: auto;
+    padding-right: 6vw; /* Espacio al final del scroll */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
+}
+.horizontal-track::-webkit-scrollbar { display: none; }
+
+/* TARJETAS INDIVIDUALES */
+.gallery-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transition: opacity 0.4s ease;
+}
+
+/* LA IMAGEN / VIDEO */
+.item-media {
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+.media-bg {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--cubic);
+}
+.item-media:hover .media-bg { transform: scale(1.03); }
+
+/* Hover Play Indicator Bonhomme Style */
+.play-indicator {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: #000;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.item-media:hover .play-indicator { opacity: 1; }
+
+/* CONTROL DE PROPORCIONES (Aspect Ratios) */
+.format-16-9 { width: 55vw; max-width: 900px; }
+.format-16-9 .item-media { aspect-ratio: 16 / 9; }
+
+.format-9-16 { width: 25vw; max-width: 450px; }
+.format-9-16 .item-media { aspect-ratio: 9 / 16; }
+
+.format-web { width: 45vw; max-width: 750px; }
+.format-web .item-media { aspect-ratio: 4 / 3; border: 1px solid #eaeaea; }
+
+/* LOS TEXTOS DEBAJO */
+.item-info { padding-right: 2vw; }
+.item-info h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: #111;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.item-info p {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+/* FOOTER BLANCO */
+.footer-light {
+    background: #ffffff;
+    padding: 40px 6vw;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #999;
+    border-top: 1px solid #eee;
+}
+
+/* MÓVIL */
+@media (max-width: 768px) {
+    .archive-header-light { padding: 130px 6vw 40px; }
+    .horizontal-track { gap: 6vw; }
+    .format-16-9 { width: 85vw; }
+    .format-9-16 { width: 70vw; }
+    .format-web { width: 85vw; }
+    .item-info h3 { font-size: 1.5rem; }
+    .play-indicator { display: none; } /* Mejor UX en móvil sin el cuadro blanco */
+}
