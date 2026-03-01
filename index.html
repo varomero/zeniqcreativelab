@@ -24,6 +24,73 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+    .form-success {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px 0;
+        opacity: 0;
+    }
+    .form-success.is-visible {
+        display: flex;
+    }
+    .fs-line {
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: width 1.2s cubic-bezier(0.25,1,0.5,1) 0.2s;
+    }
+    .form-success.is-animating .fs-line { width: 80px; }
+
+    .fs-label {
+        font-family: var(--sans);
+        font-size: 0.6rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--accent);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+    }
+    .form-success.is-animating .fs-label { opacity: 1; transform: translateY(0); }
+
+    .fs-title {
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 4vw, 3.8rem);
+        color: #fff;
+        line-height: 1.05;
+        letter-spacing: -1px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease 0.7s, transform 0.8s cubic-bezier(0.25,1,0.5,1) 0.7s;
+    }
+    .fs-title em { color: var(--accent); font-style: italic; }
+    .form-success.is-animating .fs-title { opacity: 1; transform: translateY(0); }
+
+    .fs-sub {
+        font-family: var(--sans);
+        font-size: 0.85rem;
+        font-weight: 300;
+        color: rgba(255,255,255,0.4);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.6s ease 1s, transform 0.6s ease 1s;
+    }
+    .form-success.is-animating .fs-sub { opacity: 1; transform: translateY(0); }
+
+    .fs-counter {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.2);
+        letter-spacing: 2px;
+        opacity: 0;
+        transition: opacity 0.6s ease 1.3s;
+    }
+    .form-success.is-animating .fs-counter { opacity: 1; }
+    </style>
 </head>
 <body>
 
@@ -339,6 +406,13 @@
                     <button type="submit" class="liquid-btn hover-target magnetic">Comienza la Magia</button>
                 </div>
             </form>
+            <div class="form-success" id="formSuccess">
+                <div class="fs-line"></div>
+                <span class="fs-label">Solicitud enviada</span>
+                <h3 class="fs-title">El equipo<br><em>está al tanto.</em></h3>
+                <p class="fs-sub">Te contactamos en menos de 24 horas.</p>
+                <div class="fs-counter" id="fsCounter">24:00</div>
+            </div>
         </section>
 
     </main>
@@ -556,27 +630,36 @@
                 });
 
                 if (res.ok) {
+                    const successEl = document.getElementById('formSuccess');
+
+                    // Salida del formulario
                     form.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                     form.style.opacity = '0';
-                    form.style.transform = 'translateY(-20px)';
+                    form.style.transform = 'translateY(-16px)';
 
                     setTimeout(() => {
                         form.style.display = 'none';
+                        successEl.classList.add('is-visible');
 
-                        const div = document.createElement('div');
-                        div.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;gap:1.25rem;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;';
+                        // Forzar reflow antes de animar
+                        successEl.getBoundingClientRect();
 
-                        div.innerHTML = `
-                            <div style="font-size:3.5rem;color:var(--accent);line-height:1;">&#10003;</div>
-                            <h3 style="font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin:0;">¡Solicitud enviada!</h3>
-                            <p style="font-family:var(--sans);font-weight:300;font-size:1rem;color:var(--text);opacity:0.75;max-width:400px;margin:0;line-height:1.6;">Nos pondremos en contacto contigo en menos de 24 horas.</p>
-                        `;
+                        successEl.style.transition = 'opacity 0.4s ease';
+                        successEl.style.opacity = '1';
+                        successEl.classList.add('is-animating');
 
-                        form.parentNode.insertBefore(div, form.nextSibling);
-                        requestAnimationFrame(() => requestAnimationFrame(() => {
-                            div.style.opacity = '1';
-                            div.style.transform = 'translateY(0)';
-                        }));
+                        // Contador regresivo decorativo
+                        let minutes = 23, seconds = 59;
+                        const counter = document.getElementById('fsCounter');
+                        const tick = setInterval(() => {
+                            seconds--;
+                            if (seconds < 0) { seconds = 59; minutes--; }
+                            if (minutes < 0) { clearInterval(tick); return; }
+                            counter.textContent =
+                                String(minutes).padStart(2,'0') + ':' +
+                                String(seconds).padStart(2,'0');
+                        }, 1000);
+
                     }, 500);
                 } else {
                     handleError();
