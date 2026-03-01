@@ -278,7 +278,8 @@
         <section id="contacto" class="contact-section">
             <span class="section-label reveal" style="text-align:center; margin-bottom:20px;">INICIAR PROYECTO</span>
             <h2 class="contact-title reveal">Cu&#233;ntanos tu idea.</h2>
-            <form action="mailto:romero@zeniqcreativelab.com" method="POST" enctype="text/plain" class="premium-form reveal">
+            <form id="contact-form" action="https://formspree.io/f/mqedopbo" method="POST" class="premium-form reveal">
+                <input type="hidden" name="_subject" value="Nuevo proyecto — ZENIQ Creative Lab">
                 <div class="form-row">
                     <div class="input-group">
                         <input type="text" id="nombre" name="Nombre" required class="hover-target">
@@ -528,8 +529,66 @@
         field.addEventListener('input', sync); field.addEventListener('change', sync); sync();
     });
 
+    // 13. CONTACTO — Formspree con animación de éxito
+    (function() {
+        const form = document.getElementById('contact-form');
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const handleError = () => {
+                let msg = document.getElementById('form-error-msg');
+                if (!msg) {
+                    msg = document.createElement('p');
+                    msg.id = 'form-error-msg';
+                    msg.style.cssText = 'color:var(--accent);text-align:center;margin-top:1.5rem;font-family:var(--sans);font-size:0.9rem;';
+                    form.appendChild(msg);
+                }
+                msg.textContent = 'Algo salió mal, intenta de nuevo.';
+            };
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    form.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    form.style.opacity = '0';
+                    form.style.transform = 'translateY(-20px)';
+
+                    setTimeout(() => {
+                        form.style.display = 'none';
+
+                        const div = document.createElement('div');
+                        div.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;gap:1.25rem;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;';
+
+                        div.innerHTML = `
+                            <div style="font-size:3.5rem;color:var(--accent);line-height:1;">&#10003;</div>
+                            <h3 style="font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin:0;">¡Solicitud enviada!</h3>
+                            <p style="font-family:var(--sans);font-weight:300;font-size:1rem;color:var(--text);opacity:0.75;max-width:400px;margin:0;line-height:1.6;">Nos pondremos en contacto contigo en menos de 24 horas.</p>
+                        `;
+
+                        form.parentNode.insertBefore(div, form.nextSibling);
+                        requestAnimationFrame(() => requestAnimationFrame(() => {
+                            div.style.opacity = '1';
+                            div.style.transform = 'translateY(0)';
+                        }));
+                    }, 500);
+                } else {
+                    handleError();
+                }
+            } catch (_) {
+                handleError();
+            }
+        });
+    })();
+
     // ==========================================================
-    // 13. MONOLITH ACCORDION — Mobile tap + Video hover + Modal YT
+    // 14. MONOLITH ACCORDION — Mobile tap + Video hover + Modal YT
     // ==========================================================
     (function() {
         const panels      = document.querySelectorAll('.monolith-panel');
