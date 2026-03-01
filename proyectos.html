@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -30,7 +30,7 @@
     .title-mask { overflow: hidden; display: block; line-height: 0.95; }
     .title-line {
         display: block;
-        font-family: var(--serif);
+        font-family: 'Anton', sans-serif;
         font-size: clamp(3.5rem, 8vw, 8rem);
         color: #ffffff;
         letter-spacing: 2px;
@@ -69,7 +69,7 @@
         position: relative;
         z-index: 5;
         padding-top: 40px;
-        padding-bottom: 80px;
+        padding-bottom: 20px;
         transition: background 0.6s var(--cubic);
         overflow: hidden;
     }
@@ -92,7 +92,7 @@
         opacity: 0;
         transition: opacity 0.6s var(--cubic);
     }
-    #gh-video.is-active, #gh-img.is-active { opacity: 0.3; } /* Opacidad baja para no matar el texto */
+    #gh-video.is-active, #gh-img.is-active { opacity: 0.3; }
 
     .ar-row { position: relative; z-index: 2; }
 
@@ -129,33 +129,103 @@
     .ar-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     body.hover-mode .ar-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); }
 
-    /* ── TARJETA DE PROYECTO ───────────────────────────── */
-    .ar-card { flex: 0 0 auto; scroll-snap-align: start; cursor: pointer; }
+    /* ── TARJETA DE PROYECTO — FULLBLEED ───────────────── */
+    .ar-card {
+        flex: 0 0 auto; scroll-snap-align: start; cursor: pointer;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s ease, transform 0.7s var(--cubic);
+    }
+    .ar-row.is-visible .ar-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+    .ar-row.is-visible .ar-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+    .ar-row.is-visible .ar-card:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
     .ar-card[data-size="wide"]     { width: clamp(380px, 50vw, 760px); }
     .ar-card[data-size="portrait"] { width: clamp(200px, 24vw, 370px); }
     .ar-card[data-size="screen"]   { width: clamp(320px, 42vw, 620px); }
 
-    .ar-card-media { position: relative; overflow: hidden; background: #111; border-radius: 6px; }
+    /* Media: sin border-radius, contiene todo */
+    .ar-card-media {
+        position: relative;
+        overflow: hidden;
+        background: #111;
+        border-radius: 0;
+    }
     .ar-card[data-size="wide"]     .ar-card-media { aspect-ratio: 16 / 9; }
     .ar-card[data-size="portrait"] .ar-card-media { aspect-ratio: 9 / 16; }
     .ar-card[data-size="screen"]   .ar-card-media { aspect-ratio: 4 / 3; }
 
-    .ar-card-media img, .ar-card-media video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); transition: transform 0.9s var(--cubic), filter 0.5s; }
-    .ar-card:hover .ar-card-media img, .ar-card:hover .ar-card-media video { transform: scale(1.05); filter: brightness(1); }
+    .ar-card-media img, .ar-card-media video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75); transition: transform 0.9s var(--cubic), filter 0.5s; }
+    .ar-card:hover .ar-card-media img, .ar-card:hover .ar-card-media video { transform: scale(1.05); filter: brightness(0.55); }
 
-    .ar-card-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; }
+    /* ── NÚMERO — esquina superior izquierda ── */
+    .ar-card-num {
+        position: absolute; top: 14px; left: 16px; z-index: 4;
+        font-family: var(--serif); font-style: italic;
+        font-size: 0.75rem; color: rgba(255,255,255,0.4);
+        transition: color 0.3s ease;
+    }
+    .ar-card:hover .ar-card-num { color: var(--accent); }
+
+    /* ── CHIP CATEGORÍA — esquina superior derecha ── */
+    .ar-card-category {
+        position: absolute; top: 14px; right: 16px; z-index: 4;
+        font-family: var(--sans); font-size: 0.55rem; font-weight: 600;
+        letter-spacing: 2px; text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+        background: rgba(0,0,0,0.35);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 4px 10px; border-radius: 50px;
+        border: 1px solid rgba(255,255,255,0.12);
+        display: block;
+    }
+
+    /* ── OVERLAY CENTRADO (pill CTA) ── */
+    .ar-card-overlay {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 3;
+        opacity: 0; transition: opacity 0.4s ease;
+    }
     .ar-card:hover .ar-card-overlay { opacity: 1; }
-    .ar-card-cta { font-family: var(--sans); font-size: 0.65rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #fff; border: 1px solid rgba(255,255,255,0.6); padding: 12px 24px; border-radius: 50px; transition: 0.3s; }
+    .ar-card-cta {
+        font-family: var(--sans); font-size: 0.62rem; font-weight: 600;
+        letter-spacing: 3px; text-transform: uppercase; color: #fff;
+        border: 1px solid rgba(255,255,255,0.5);
+        padding: 13px 26px; border-radius: 50px;
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
     .ar-card:hover .ar-card-cta { background: var(--accent); border-color: var(--accent); }
 
-    /* Textos (Optimizados para fondo oscuro) */
-    .ar-card-info { padding: 18px 0 0; }
-    .ar-card-category { font-family: var(--sans); font-size: 0.6rem; font-weight: 600; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 8px; }
-    .ar-card-title { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.8rem); color: #fff; font-style: italic; font-weight: 400; letter-spacing: -0.5px; line-height: 1.1; transition: color 0.5s ease; }
-    .ar-card-desc { font-family: var(--sans); font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 8px; line-height: 1.5; max-width: 90%; transition: color 0.5s ease; }
+    /* ── INFO OVERLAY — parte inferior con gradiente ── */
+    .ar-card-info {
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+        padding: 56px 18px 20px;
+        background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+        pointer-events: none;
+    }
+    .ar-card-title {
+        font-family: var(--serif); font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+        color: #fff; font-style: italic; font-weight: 400;
+        letter-spacing: -0.5px; line-height: 1.1;
+        transition: color 0.5s ease;
+        display: block; margin-bottom: 6px;
+    }
+    .ar-card-desc {
+        font-family: var(--sans); font-size: 0.78rem;
+        color: rgba(255,255,255,0.65);
+        line-height: 1.5; max-width: 90%;
+        transition: opacity 0.4s ease, transform 0.4s ease, color 0.5s ease;
+        opacity: 0; transform: translateY(8px);
+    }
+    .ar-card:hover .ar-card-desc { opacity: 1; transform: translateY(0); }
 
     /* ── FOOTER Y MODAL ────────────────────────────── */
-    .main-footer { position: relative !important; height: auto !important; }
+    .main-footer { position: relative !important; height: auto !important; margin-top: 80px; }
+    @media (max-width: 768px) { .main-footer { margin-top: 80px; } }
 
     .ar-modal { position: fixed; inset: 0; z-index: 8000; background: rgba(5,5,5,0.98); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
     .ar-modal.is-active { opacity: 1; pointer-events: all; }
@@ -174,17 +244,9 @@
         .ar-card[data-size="wide"] { width: 85vw; }
         .ar-card[data-size="portrait"] { width: 65vw; }
         .ar-card[data-size="screen"] { width: 80vw; }
-        .ar-card-title { font-size: 1.3rem; }
+        .ar-card-title { font-size: 1.2rem; }
+        .ar-card-info { padding: 48px 14px 16px; }
     }
-
-    /* ── NÚMERO DE TARJETA ─────────────────────────────── */
-    .ar-card-num {
-        position: absolute; top: 14px; left: 16px; z-index: 3;
-        font-family: var(--serif); font-style: italic;
-        font-size: 0.75rem; color: rgba(255,255,255,0.4);
-        transition: color 0.3s ease;
-    }
-    .ar-card:hover .ar-card-num { color: var(--accent); }
 
     /* ── SCROLL HINT ───────────────────────────────────── */
     .ar-scroll-hint {
@@ -242,17 +304,36 @@
     <div id="cursor"></div>
 
     <nav class="glass-nav">
-        <a href="index.html" class="nav-logo-link"><img src="logo.png" alt="ZENIQ" class="nav-logo-img"></a>
+        <a href="/" class="nav-logo-link"><img src="logo.png" alt="ZENIQ" class="nav-logo-img"></a>
         <div class="nav-trigger hover-target" id="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </nav>
     <div class="menu-shockwave" id="shockwave"></div>
 
     <div id="menu-overlay">
+        <video class="menu-video-bg" autoplay loop muted playsinline>
+            <source src="fondo-animado.mp4" type="video/mp4">
+        </video>
+        <div class="menu-video-overlay"></div>
+
         <div class="menu-container">
+            <div class="menu-info">
+                <p class="menu-label">Ponte en contacto</p>
+                <a href="mailto:romero@zeniqcreativelab.com" class="hover-target">romero@zeniqcreativelab.com</a>
+                <p class="menu-label" style="margin-top: 3rem;">Nuestras Redes</p>
+                <div class="menu-socials">
+                    <a href="#" class="hover-target">Instagram</a>
+                    <a href="#" class="hover-target">Behance</a>
+                    <a href="#" class="hover-target">WhatsApp</a>
+                </div>
+            </div>
+
             <ul class="menu-links-2026">
-                <li class="menu-item" style="--i:1;"><span class="menu-num">01</span><a href="index.html" class="hover-target">Inicio</a></li>
-                <li class="menu-item" style="--i:2;"><span class="menu-num">02</span><a href="index.html#servicios" class="hover-target">Servicios</a></li>
-                <li class="menu-item" style="--i:3;"><span class="menu-num">03</span><a href="index.html#contacto" class="hover-target">Contacto</a></li>
+                <li class="menu-item" style="--i: 1;"><span class="menu-num">01</span><a href="/#hero" class="hover-target magnetic" onclick="toggleMenu()">Inicio</a></li>
+                <li class="menu-item" style="--i: 2;"><span class="menu-num">02</span><a href="/#reel" class="hover-target magnetic" onclick="toggleMenu()">Showreel</a></li>
+                <li class="menu-item" style="--i: 3;"><span class="menu-num">03</span><a href="/#about" class="hover-target magnetic" onclick="toggleMenu()">About</a></li>
+                <li class="menu-item" style="--i: 4;"><span class="menu-num">04</span><a href="/#servicios" class="hover-target magnetic" onclick="toggleMenu()">Servicios</a></li>
+                <li class="menu-item" style="--i: 5;"><span class="menu-num">05</span><a href="/proyectos" class="hover-target magnetic" onclick="toggleMenu()">Proyectos</a></li>
+                <li class="menu-item" style="--i: 6;"><span class="menu-num">06</span><a href="/#contacto" class="hover-target magnetic" onclick="toggleMenu()">Contacto</a></li>
             </ul>
         </div>
     </div>
@@ -280,10 +361,10 @@
     </div>
 
     <div class="ar-filter-bar" id="filterBar">
-        <button class="ar-btn active hover-target" data-filter="all"><span>Todos</span><span class="ar-btn-count">30</span></button>
-        <button class="ar-btn hover-target" data-filter="comercial"><span>Comercial</span><span class="ar-btn-count">10</span></button>
-        <button class="ar-btn hover-target" data-filter="vertical"><span>Vertical Cinema</span><span class="ar-btn-count">10</span></button>
-        <button class="ar-btn hover-target" data-filter="web"><span>Web</span><span class="ar-btn-count">10</span></button>
+        <button class="ar-btn active hover-target" data-filter="all"><span>Todos</span><span class="ar-btn-count">9</span></button>
+        <button class="ar-btn hover-target" data-filter="comercial"><span>Comercial</span><span class="ar-btn-count">3</span></button>
+        <button class="ar-btn hover-target" data-filter="vertical"><span>Vertical Cinema</span><span class="ar-btn-count">3</span></button>
+        <button class="ar-btn hover-target" data-filter="web"><span>Web</span><span class="ar-btn-count">3</span></button>
     </div>
 
     <div class="ar-content-wrapper">
@@ -293,149 +374,200 @@
             <img id="gh-img" src="" alt="">
         </div>
 
+        <!-- ══ FILA 01 · COMERCIAL ═══════════════════════════════════ -->
         <div class="ar-row ar-reveal" data-row="comercial">
             <div class="ar-row-header"><span class="ar-row-title">01 &nbsp;·&nbsp; Cinematografía Comercial</span><span class="ar-scroll-hint">desliza &nbsp;→</span></div>
             <div class="ar-track">
 
                 <div class="ar-card hover-target" data-size="wide" data-yt-id="MqXLyt2LGLI" data-hover-video="FIATcomercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="FIAT"><span class="ar-card-num">01</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">FIAT Venezuela</h2><p class="ar-card-desc">Dirección y cinematografía de alto rango dinámico.</p></div>
+                    <div class="ar-card-media">
+                        <img src="cover-fiat.jpg" alt="FIAT">
+                        <span class="ar-card-num">01</span>
+                        <span class="ar-card-category">Comercial</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">FIAT Venezuela</h2>
+                            <p class="ar-card-desc">Dirección y cinematografía de alto rango dinámico.</p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Jeep"><span class="ar-card-num">02</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">JEEP Wrangler</h2><p class="ar-card-desc">Campaña de aventura en los Médanos de Coro.</p></div>
+                    <div class="ar-card-media">
+                        <img src="cover-fiat.jpg" alt="Jeep">
+                        <span class="ar-card-num">02</span>
+                        <span class="ar-card-category">Comercial</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">JEEP Wrangler</h2>
+                            <p class="ar-card-desc">Campaña de aventura en los Médanos de Coro.</p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="RAM"><span class="ar-card-num">03</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">DODGE RAM</h2><p class="ar-card-desc">Spot de fuerza y territorio con iluminación premium.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">04</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Polar Cerveza</h2><p class="ar-card-desc">Spot de temporada. Ritmo editorial acelerado.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">05</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Movistar VE</h2><p class="ar-card-desc">Campaña emocional con enfoque en conexión humana.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">06</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Banesco</h2><p class="ar-card-desc">Producción corporativa con dirección de arte editorial.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">07</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Digitel Spot</h2><p class="ar-card-desc">Visual contemporáneo con colorimetría de cine.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">08</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Farmatodo</h2><p class="ar-card-desc">Enfoque documental y narrativa auténtica.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">09</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Chevrolet</h2><p class="ar-card-desc">Composición dinámica y movimientos de cámara.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-comercial.mp4">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Marca"><span class="ar-card-num">10</span><div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Comercial</span><h2 class="ar-card-title">Nike Local</h2><p class="ar-card-desc">Campaña deportiva. Iluminación de alto contraste.</p></div>
+                    <div class="ar-card-media">
+                        <img src="cover-fiat.jpg" alt="RAM">
+                        <span class="ar-card-num">03</span>
+                        <span class="ar-card-category">Comercial</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">DODGE RAM</h2>
+                            <p class="ar-card-desc">Spot de fuerza y territorio con iluminación premium.</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
 
+        <!-- ══ FILA 02 · VERTICAL CINEMA ══════════════════════════════ -->
         <div class="ar-row ar-reveal" data-row="vertical">
             <div class="ar-row-header"><span class="ar-row-title">02 &nbsp;·&nbsp; Vertical Cinema</span><span class="ar-scroll-hint">desliza &nbsp;→</span></div>
             <div class="ar-track">
 
                 <div class="ar-card hover-target" data-size="portrait" data-yt-id="vrqXJUte8Ss" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">01</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Golden Dog</h2><p class="ar-card-desc">Diseñado para dominar el algoritmo.</p></div>
+                    <div class="ar-card-media">
+                        <img src="img/cover-golden.jpg" alt="Dog">
+                        <span class="ar-card-num">01</span>
+                        <span class="ar-card-category">Vertical</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">Golden Dog</h2>
+                            <p class="ar-card-desc">Diseñado para dominar el algoritmo.</p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">02</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">RAM Stories</h2><p class="ar-card-desc">Aventura y territorio en 9:16 cinematográfico.</p></div>
+                    <div class="ar-card-media">
+                        <img src="img/cover-golden.jpg" alt="RAM Stories">
+                        <span class="ar-card-num">02</span>
+                        <span class="ar-card-category">Vertical</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">RAM Stories</h2>
+                            <p class="ar-card-desc">Aventura y territorio en 9:16 cinematográfico.</p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">03</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">ZENIQ Reel</h2><p class="ar-card-desc">Demo reel vertical. Mejores momentos del año.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">04</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Fashion Week</h2><p class="ar-card-desc">Estética editorial de alta costura para Instagram.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">05</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Ciudad Noche</h2><p class="ar-card-desc">Caracas capturada con lentes de gran apertura.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">06</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Movistar Creators</h2><p class="ar-card-desc">Contenido nativo de campaña.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">07</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">FIAT Sport</h2><p class="ar-card-desc">Micro-films verticales. Velocidad y diseño.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">08</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Festival Cine</h2><p class="ar-card-desc">Cobertura backstage en formato nativo.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">09</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Alta Costura</h2><p class="ar-card-desc">Luz natural y movimientos de cámara fluidos.</p></div>
-                </div>
-                <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_ID" data-hover-video="tu-video-vertical.mp4">
-                    <div class="ar-card-media"><img src="img/cover-golden.jpg" alt="Dog"><span class="ar-card-num">10</span><div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Vertical</span><h2 class="ar-card-title">Burger Lab</h2><p class="ar-card-desc">Gastronomía premium en cámara lenta.</p></div>
+                    <div class="ar-card-media">
+                        <img src="img/cover-golden.jpg" alt="ZENIQ Reel">
+                        <span class="ar-card-num">03</span>
+                        <span class="ar-card-category">Vertical</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">ZENIQ Reel</h2>
+                            <p class="ar-card-desc">Demo reel vertical. Mejores momentos del año.</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
 
+        <!-- ══ FILA 03 · WEB ═══════════════════════════════════════════ -->
         <div class="ar-row ar-reveal" data-row="web">
             <div class="ar-row-header"><span class="ar-row-title">03 &nbsp;·&nbsp; Arquitectura Digital</span><span class="ar-scroll-hint">desliza &nbsp;→</span></div>
             <div class="ar-track">
 
                 <a href="https://zeniqcreativelab.com" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><video autoplay loop muted playsinline><source src="videos/tu-video-web-scroll.mp4" type="video/mp4"></video><span class="ar-card-num">01</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Plataforma ZENIQ</h2><p class="ar-card-desc">Diseño UI/UX y desarrollo de vanguardia.</p></div>
+                    <div class="ar-card-media">
+                        <video autoplay loop muted playsinline><source src="videos/tu-video-web-scroll.mp4" type="video/mp4"></video>
+                        <span class="ar-card-num">01</span>
+                        <span class="ar-card-category">Web</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Visitar</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">Plataforma ZENIQ</h2>
+                            <p class="ar-card-desc">Diseño UI/UX y desarrollo de vanguardia.</p>
+                        </div>
+                    </div>
                 </a>
+
                 <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">02</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">RAM Landing</h2><p class="ar-card-desc">Experiencia inmersiva y galería dinámica.</p></div>
+                    <div class="ar-card-media">
+                        <img src="cover-fiat.jpg" alt="RAM Landing">
+                        <span class="ar-card-num">02</span>
+                        <span class="ar-card-category">Web</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Visitar</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">RAM Landing</h2>
+                            <p class="ar-card-desc">Experiencia inmersiva y galería dinámica.</p>
+                        </div>
+                    </div>
                 </a>
+
                 <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">03</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Agencia 360</h2><p class="ar-card-desc">Animaciones CSS de alto impacto.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">04</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">E-Commerce Lujo</h2><p class="ar-card-desc">UX optimizado para alta conversión.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">05</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Arquitecto Portafolio</h2><p class="ar-card-desc">Galería inmersiva a pantalla completa.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">06</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Real Estate</h2><p class="ar-card-desc">Búsqueda avanzada y recorridos 3D.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">07</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Festival Hub</h2><p class="ar-card-desc">Streaming y venta de entradas integrada.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">08</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Personal Brand</h2><p class="ar-card-desc">Diseño minimalista y limpio.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">09</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">Data Dashboard</h2><p class="ar-card-desc">Visualización de datos en tiempo real UI oscura.</p></div>
-                </a>
-                <a href="#" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="cover-fiat.jpg" style="text-decoration:none;">
-                    <div class="ar-card-media"><img src="cover-fiat.jpg" alt="Web"><span class="ar-card-num">10</span><div class="ar-card-overlay"><span class="ar-card-cta">Ir a Web</span></div></div>
-                    <div class="ar-card-info"><span class="ar-card-category">Web</span><h2 class="ar-card-title">FIAT Microsite</h2><p class="ar-card-desc">Sitio interactivo para lanzamiento de modelo.</p></div>
+                    <div class="ar-card-media">
+                        <img src="cover-fiat.jpg" alt="Agencia 360">
+                        <span class="ar-card-num">03</span>
+                        <span class="ar-card-category">Web</span>
+                        <div class="ar-card-overlay"><span class="ar-card-cta">Visitar</span></div>
+                        <div class="ar-card-info">
+                            <h2 class="ar-card-title">Agencia 360</h2>
+                            <p class="ar-card-desc">Animaciones CSS de alto impacto.</p>
+                        </div>
+                    </div>
                 </a>
 
             </div>
         </div>
+
+        <!--
+        ══════════════════════════════════════════════════════════════════
+        PLANTILLA PARA AGREGAR NUEVOS PROYECTOS
+        ══════════════════════════════════════════════════════════════════
+
+        TARJETA BÁSICA (copia y pega dentro del .ar-track correcto):
+
+        — Comercial / Video (data-yt-id abre modal de YouTube):
+        <div class="ar-card hover-target" data-size="wide" data-yt-id="YOUTUBE_VIDEO_ID" data-hover-video="videos/NOMBRE.mp4">
+            <div class="ar-card-media">
+                <img src="RUTA/cover.jpg" alt="DESCRIPCIÓN">
+                <span class="ar-card-num">04</span>
+                <span class="ar-card-category">Comercial</span>
+                <div class="ar-card-overlay"><span class="ar-card-cta">Ver Reel</span></div>
+                <div class="ar-card-info">
+                    <h2 class="ar-card-title">Nombre del Proyecto</h2>
+                    <p class="ar-card-desc">Descripción breve del proyecto.</p>
+                </div>
+            </div>
+        </div>
+
+        — Vertical Cinema (portrait 9:16):
+        <div class="ar-card hover-target" data-size="portrait" data-yt-id="YOUTUBE_VIDEO_ID" data-hover-video="videos/NOMBRE.mp4">
+            <div class="ar-card-media">
+                <img src="RUTA/cover.jpg" alt="DESCRIPCIÓN">
+                <span class="ar-card-num">04</span>
+                <span class="ar-card-category">Vertical</span>
+                <div class="ar-card-overlay"><span class="ar-card-cta">Play</span></div>
+                <div class="ar-card-info">
+                    <h2 class="ar-card-title">Nombre del Proyecto</h2>
+                    <p class="ar-card-desc">Descripción breve del proyecto.</p>
+                </div>
+            </div>
+        </div>
+
+        — Web (link externo, sin modal YouTube):
+        <a href="https://URL-DEL-SITIO.com" target="_blank" class="ar-card hover-target" data-size="screen" data-hover-img="RUTA/cover.jpg" style="text-decoration:none;">
+            <div class="ar-card-media">
+                <img src="RUTA/cover.jpg" alt="DESCRIPCIÓN">
+                <span class="ar-card-num">04</span>
+                <span class="ar-card-category">Web</span>
+                <div class="ar-card-overlay"><span class="ar-card-cta">Visitar</span></div>
+                <div class="ar-card-info">
+                    <h2 class="ar-card-title">Nombre del Proyecto</h2>
+                    <p class="ar-card-desc">Descripción breve del proyecto.</p>
+                </div>
+            </div>
+        </a>
+
+        data-size opciones: "wide" (16:9) | "portrait" (9:16) | "screen" (4:3)
+        Recuerda actualizar el contador en .ar-btn-count del filtro correspondiente.
+        ══════════════════════════════════════════════════════════════════
+        -->
 
     </div>
 
@@ -464,6 +596,21 @@
     if(cursor) { document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; }); (function tick() { cX += (mX - cX) * 0.15; cY += (mY - cY) * 0.15; cursor.style.transform = `translate3d(${cX}px,${cY}px,0) translate(-50%,-50%)`; requestAnimationFrame(tick); })(); }
     document.querySelectorAll('.hover-target, a, button').forEach(el => { el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hovered')); el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hovered')); });
     function toggleMenu() { document.getElementById('shockwave').classList.toggle('active'); document.getElementById('menu-overlay').classList.toggle('active'); document.getElementById('menu-btn').classList.toggle('active'); }
+
+    // MAGNETIC
+    document.querySelectorAll('.magnetic').forEach(elem => {
+        elem.addEventListener('mousemove', function(e) {
+            var rect = this.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width / 2;
+            var y = e.clientY - rect.top - rect.height / 2;
+            this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            this.style.transition = 'transform 0.1s ease-out';
+        });
+        elem.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0, 0)';
+            this.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        });
+    });
 
     const ro = new IntersectionObserver((entries, obs) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); } }); }, { threshold: 0.08 });
     document.querySelectorAll('.ar-reveal, .reveal-block').forEach(el => ro.observe(el));
