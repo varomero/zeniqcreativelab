@@ -70,7 +70,7 @@ body.loaded .glass-nav { pointer-events: all; animation: navDrop 2s cubic-bezier
 .nav-logo-img { height: 40px; border-right: 1px solid rgba(255, 255, 255, 0.15); padding-right: 30px; z-index: 10001; transition: opacity 0.3s ease, transform 0.3s ease; }
 .nav-logo-link:hover .nav-logo-img { opacity: 0.75; transform: scale(1.06); }
 .nav-trigger { position: relative; width: 30px; height: 15px; display: flex; align-items: center; justify-content: center; z-index: 10001; }
-.nav-trigger span { position: absolute; width: 6px; height: 6px; background: white; border-radius: 50%; transition: all 0.0s var(--cubic); }
+.nav-trigger span { position: absolute; width: 6px; height: 6px; background: white; border-radius: 50%; transition: width 0.35s var(--cubic), height 0.35s var(--cubic), border-radius 0.35s var(--cubic), left 0.35s var(--cubic), transform 0.4s var(--cubic), opacity 0.25s ease; }
 .nav-trigger span:nth-child(1) { left: 0; } .nav-trigger span:nth-child(2) { left: 12px; } .nav-trigger span:nth-child(3) { right: 0; }
 .nav-trigger.active span { width: 26px; height: 2px; border-radius: 0; left: 2px; background: white; }
 .nav-trigger.active span:nth-child(1) { transform: rotate(45deg); } .nav-trigger.active span:nth-child(2) { opacity: 0; } .nav-trigger.active span:nth-child(3) { transform: rotate(-45deg); }
