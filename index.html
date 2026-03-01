@@ -28,21 +28,55 @@
     .form-success {
         display: none;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         gap: 20px;
-        padding: 20px 0;
+        padding: 70px 40px;
         opacity: 0;
+        width: 100%;
     }
     .form-success.is-visible {
         display: flex;
     }
+
+    /* ── Z LOGO ── */
+    .fs-z-wrapper {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 12px;
+        opacity: 0;
+        transform: scale(0.7);
+        transition: opacity 0.5s ease 0.1s, transform 0.7s cubic-bezier(0.25,1,0.5,1) 0.1s;
+    }
+    .form-success.is-animating .fs-z-wrapper { opacity: 1; transform: scale(1); }
+    .fs-z-svg { width: 100%; height: 100%; overflow: visible; }
+    .fs-z-path {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 250;
+        stroke-dashoffset: 250;
+        transition: stroke-dashoffset 1.6s cubic-bezier(0.25,1,0.5,1) 0.5s;
+    }
+    .form-success.is-animating .fs-z-path {
+        stroke-dashoffset: 0;
+        animation: zGlow 3s ease-in-out 2.2s infinite;
+    }
+    @keyframes zGlow {
+        0%, 100% { filter: drop-shadow(0 0 5px rgba(211,84,0,0.35)); }
+        50%       { filter: drop-shadow(0 0 18px rgba(211,84,0,0.9)); }
+    }
+
     .fs-line {
         width: 0;
         height: 1px;
         background: var(--accent);
-        transition: width 1.2s cubic-bezier(0.25,1,0.5,1) 0.2s;
+        transition: width 1.2s cubic-bezier(0.25,1,0.5,1) 2.1s;
     }
-    .form-success.is-animating .fs-line { width: 80px; }
+    .form-success.is-animating .fs-line { width: 60px; }
 
     .fs-label {
         font-family: var(--sans);
@@ -52,7 +86,7 @@
         color: var(--accent);
         opacity: 0;
         transform: translateY(10px);
-        transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+        transition: opacity 0.6s ease 2.4s, transform 0.6s ease 2.4s;
     }
     .form-success.is-animating .fs-label { opacity: 1; transform: translateY(0); }
 
@@ -64,7 +98,7 @@
         letter-spacing: -1px;
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 0.8s ease 0.7s, transform 0.8s cubic-bezier(0.25,1,0.5,1) 0.7s;
+        transition: opacity 0.8s ease 2.6s, transform 0.8s cubic-bezier(0.25,1,0.5,1) 2.6s;
     }
     .fs-title em { color: var(--accent); font-style: italic; }
     .form-success.is-animating .fs-title { opacity: 1; transform: translateY(0); }
@@ -76,7 +110,7 @@
         color: rgba(255,255,255,0.4);
         opacity: 0;
         transform: translateY(10px);
-        transition: opacity 0.6s ease 1s, transform 0.6s ease 1s;
+        transition: opacity 0.6s ease 2.9s, transform 0.6s ease 2.9s;
     }
     .form-success.is-animating .fs-sub { opacity: 1; transform: translateY(0); }
 
@@ -87,7 +121,7 @@
         color: rgba(255,255,255,0.2);
         letter-spacing: 2px;
         opacity: 0;
-        transition: opacity 0.6s ease 1.3s;
+        transition: opacity 0.6s ease 3.2s;
     }
     .form-success.is-animating .fs-counter { opacity: 1; }
     </style>
@@ -407,6 +441,11 @@
                 </div>
             </form>
             <div class="form-success" id="formSuccess">
+                <div class="fs-z-wrapper">
+                    <svg class="fs-z-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fs-z-path" d="M 12,20 L 88,20 L 12,80 L 88,80"/>
+                    </svg>
+                </div>
                 <div class="fs-line"></div>
                 <span class="fs-label">Solicitud enviada</span>
                 <h3 class="fs-title">El equipo<br><em>está al tanto.</em></h3>
